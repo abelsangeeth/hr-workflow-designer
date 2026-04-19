@@ -113,19 +113,18 @@ NodeFormPanel sends to the appropriate *NodeForm depending on selectedNodeId. Ea
 
 ---
 
-## 🐛 Tricky Frontend Bug Solved
+##  Tricky Frontend Bug Solved
 
 **The Problem:** 
-During development, the entire React Flow canvas would blank out or throw an infinite re-render loop error. 
+When the development was underway, the whole React Flow canvas would be blanked out or would result in an infinite re-render loop error.
 
 **The Cause:** 
-The issue stemmed from how state was being extracted from our Zustand store. Two subtle anti-patterns were causing React to constantly see "new" state on every single render tick:
-1. Returning object literals directly inside our store hooks (e.g., `useWorkflowStore(s => ({ x: s.x, y: s.y }))`).
+The trouble was due to the extraction of state out of our Zustand store. Two minor anti-patterns were making React observe a new state with each render tick:
+1. Retrieving object literals right in our store hooks. (e.g., `useWorkflowStore(s => ({ x: s.x, y: s.y }))`).
 2. Running array methods like `.filter()` directly inside a selector (e.g., `useWorkflowStore(s => s.validationIssues.filter(...))`). Because `.filter()` creates a new array instance in memory every time, Zustand's strict equality check failed, forcing the node components to infinitely re-update.
 
 **The Fix:** 
-We refactored our component selectors to grab stable primitives individually (e.g., `const nodes = useWorkflowStore(s => s.nodes);`), and extracted the `.filter()` operations out of the store selector and into the component body. This ensured Zustand's shallow equality checks passed successfully, instantly stabilizing the canvas and resolving the crashes.
-
+We re-wrote our component selectors to get stable primitives one at a time. (e.g., `const nodes = useWorkflowStore(s => s.nodes);`), and extracted the `.filter()` operations in the store selector and to the component body. This had the effect of ensuring that the shallow equality checks by Zustand were successful immediately stabilizing the canvas and eliminating the crashes.
 ---
 
 ## Stack
