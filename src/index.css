@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #0d1117;
+  color: #e6edf3;
+  overflow: hidden;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #161b22; }
+::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #484f58; }
+
+/* ─── React Flow overrides ────────────────────────────────────── */
+.react-flow__background { background-color: #0d1117; }
+.react-flow__pane { cursor: default; }
+
+.react-flow__edge-path {
+  stroke: #484f58;
+  stroke-width: 2;
+}
+.react-flow__edge.selected .react-flow__edge-path,
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke: #7c3aed;
+  stroke-width: 2.5;
+}
+
+.react-flow__handle {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50%;
+  border: 2px solid #484f58 !important;
+  background: #161b22 !important;
+  transition: all 0.15s ease;
+}
+.react-flow__handle:hover {
+  border-color: #7c3aed !important;
+  background: #7c3aed !important;
+  transform: scale(1.3);
+}
+.react-flow__handle-connecting {
+  background: #7c3aed !important;
+  border-color: #7c3aed !important;
+}
+
+.react-flow__controls {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.react-flow__controls-button {
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  color: #8b949e;
+  fill: #8b949e;
+}
+.react-flow__controls-button:hover {
+  background: #21262d;
+  fill: #e6edf3;
+}
+
+.react-flow__minimap {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+}
+
+.react-flow__node.selected > div {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+
+/* ─── Node card base ──────────────────────────────────────────── */
+.node-card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  min-width: 200px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
+  position: relative;
+}
+.node-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  border-color: #484f58;
+}
+.node-card.has-error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239,68,68,0.2);
+}
+.node-card.has-warning {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 2px rgba(245,158,11,0.2);
+}
+
+/* ─── Sidebar draggable ───────────────────────────────────────── */
+.sidebar-node-type {
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.sidebar-node-type:active { cursor: grabbing; }
+.sidebar-node-type:hover {
+  transform: translateX(2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+/* ─── Form inputs ─────────────────────────────────────────────── */
+.form-input {
+  @apply w-full bg-canvas-bg border border-canvas-border rounded-md px-3 py-2
+         text-sm text-gray-200 placeholder-gray-600
+         focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent
+         transition-all duration-150;
+}
+.form-label {
+  @apply block text-xs font-medium text-gray-400 mb-1.5;
+}
+.form-section {
+  @apply space-y-3;
+}
+
+/* ─── Animations ──────────────────────────────────────────────── */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);   opacity: 1; }
+}
+@keyframes slideInUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0); }
+  50%       { box-shadow: 0 0 12px 4px rgba(124,58,237,0.3); }
+}
+
+.animate-slide-in-right { animation: slideInRight 0.25s ease-out; }
+.animate-slide-in-up    { animation: slideInUp 0.3s ease-out; }
+.animate-fade-in        { animation: fadeIn 0.2s ease-out; }
+.animate-pulse-glow     { animation: pulse-glow 2s infinite; }
+
+/* ─── Simulation log ──────────────────────────────────────────── */
+.sim-step { animation: fadeIn 0.3s ease-out; }
+.sim-step-pending  { border-left-color: #484f58; }
+.sim-step-running  { border-left-color: #3b82f6; animation: pulse-glow 1s infinite; }
+.sim-step-success  { border-left-color: #10b981; }
+.sim-step-failed   { border-left-color: #ef4444; }
+.sim-step-skipped  { border-left-color: #8b949e; }
+
+/* ─── Toggle switch ───────────────────────────────────────────── */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+.toggle-switch input { display: none; }
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: #30363d;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 16px; height: 16px;
+  left: 3px; top: 3px;
+  background: #8b949e;
+  border-radius: 50%;
+  transition: transform 0.2s, background 0.2s;
+}
+.toggle-switch input:checked + .toggle-slider { background: #7c3aed; }
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(18px);
+  background: #fff;
+}
+
+/* ─── Drag overlay ────────────────────────────────────────────── */
+.drop-zone-active {
+  background: radial-gradient(ellipse at center, rgba(124,58,237,0.06) 0%, transparent 70%);
+}
+
+/* ─── Toolbar buttons ─────────────────────────────────────────── */
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8b949e;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.toolbar-btn:hover {
+  color: #e6edf3;
+  background: #21262d;
+  border-color: #30363d;
+}
+.toolbar-btn:active { transform: scale(0.97); }
+
+.toolbar-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.15s;
+  white-space: nowrap;
+}
+.toolbar-btn-primary:hover  { filter: brightness(1.1); }
+.toolbar-btn-primary:active { transform: scale(0.97); }
+.toolbar-btn-primary:disabled {
+  background: #21262d;
+  color: #484f58;
+  cursor: not-allowed;
+}
+
+/* ─── line-clamp utility ──────────────────────────────────────── */
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
