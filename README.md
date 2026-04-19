@@ -57,9 +57,9 @@ src/
 ##  Design Decisions
 
 ### State — Zustand
-Single `useWorkflowStore` owns all state: nodes, edges, selection, validation issues, sandbox toggle.
-React Flow's change handlers delegate directly to the store, keeping the canvas component thin.
-`updateNodeData(id, patch)` does a shallow merge so forms only touch their own fields.
+State: all state is owned by single useWorkflowStore: nodes, edges, selection, validation issues, sandbox toggle.
+The change handlers in React Flow are directed to the store, which makes the canvas component slim.
+updateNodeData(id, patch) does a shallow merge hence only touches their fields.
 
 ### Custom Nodes
 Each node kind is a fully isolated React component registered in `nodeTypes`. They:
