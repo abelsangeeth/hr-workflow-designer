@@ -40,7 +40,7 @@ src/
 │   │   ├── ApprovalNode.tsx
 │   │   ├── AutomatedNode.tsx
 │   │   ├── EndNode.tsx
-│   │   └── index.ts            # nodeTypes map passed to <ReactFlow>
+│   │   └── index.ts            # nodeTypes map represented in ReactFlow.
 │   └── sandbox/
 │       └── SandboxPanel.tsx    # Slide-up test/simulation panel
 ├── store/
