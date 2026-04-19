@@ -68,9 +68,7 @@ Each node kind is a fully isolated React component registered in `nodeTypes`. Th
 - Render a consistent card with a coloured left border and type-specific header
 
 ### Forms
-`NodeFormPanel` dispatches to the correct `*NodeForm` based on `selectedNodeId`.
-Each form is a fully controlled component calling `updateNodeData` on every change.
-`AutomatedNodeForm` fetches `GET /automations` on mount, then dynamically renders one input per `params` entry of the selected action.
+NodeFormPanel sends to the appropriate *NodeForm depending on selectedNodeId. Each form is a fully controlled component calling updateNodeData on every change. AutomatedNodeForm mounts to GET /automations, and dynamically mounts one input per entry of the action of choice in the params list.
 
 ### Mock API (`src/api/mockApi.ts`)
 - `getAutomations()` — 300 ms simulated latency, 6 typed action definitions
