@@ -4,7 +4,7 @@ A visual HR Workflow Designer built with **React + React Flow + TypeScript + Vit
 
 ---
 
-## 🚀 How to Run
+##  How to Run
 
 ```bash
 cd hr-workflow-designer
@@ -16,7 +16,7 @@ Open [http://localhost:5173](http://localhost:5173).
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 src/
@@ -54,7 +54,7 @@ src/
 
 ---
 
-## 🎨 Design Decisions
+##  Design Decisions
 
 ### State — Zustand
 Single `useWorkflowStore` owns all state: nodes, edges, selection, validation issues, sandbox toggle.
@@ -104,7 +104,7 @@ Each form is a fully controlled component calling `updateNodeData` on every chan
 
 ---
 
-## 🔭 What I'd Add With More Time
+##  What I'd Add With More Time
 
 1. **Undo / Redo** — command history stack with `immer`
 2. **Auto-layout** — `dagre` for clean arrangement
@@ -115,7 +115,7 @@ Each form is a fully controlled component calling `updateNodeData` on every chan
 
 ---
 
-## 🛠️ Stack
+## Stack
 
 | Tool | Purpose |
 |---|---|
